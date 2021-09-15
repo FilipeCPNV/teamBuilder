@@ -6,7 +6,7 @@
  * Modified last :
  **/
 
-require "../model/DB.php";
+require "model/DB.php";
 
 echo "\n>>>>> Test selectMany:\n";
 $res = DB::selectMany("SELECT * FROM roles", []);

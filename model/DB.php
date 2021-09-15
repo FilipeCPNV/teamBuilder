@@ -1,5 +1,5 @@
 <?php
-require "../.env.php";
+require ".env.php";
 
 /**
  * File : DB.php
