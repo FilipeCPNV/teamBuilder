@@ -57,16 +57,16 @@ class TeamTest extends TestCase
      */
     public function testAll()
     {
-        $this->assertEquals(15,count(Team::all()));
+        $this->assertEquals(15,count(TeamController::all()));
     }
 
     /**
-     * @covers Team::find(id)
+     * @covers TeamController::find(id)
      */
     public function testFind()
     {
-        $this->assertInstanceOf(Team::class,Team::find(1));
-        $this->assertNull(Team::find(1000));
+        $this->assertInstanceOf(TeamController::class,TeamController::find(1));
+        $this->assertNull(TeamController::find(1000));
     }
 
     /**
@@ -74,7 +74,7 @@ class TeamTest extends TestCase
      */
     public function testCreate()
     {
-        $team = new Team();
+        $team = new TeamController();
         $team->name = "XXX";
         $team->state_id = 1;
         $this->assertTrue($team->create());
@@ -86,11 +86,11 @@ class TeamTest extends TestCase
      */
     public function testSave()
     {
-        $team = Team::find(1);
+        $team = TeamController::find(1);
         $savename = $team->name;
         $team->name = "newname";
         $this->assertTrue($team->save());
-        $this->assertEquals("newname",Team::find(1)->name);
+        $this->assertEquals("newname",TeamController::find(1)->name);
         $team->name = $savename;
         $team->save();
     }
@@ -100,8 +100,8 @@ class TeamTest extends TestCase
      */
     public function testSaveRejectsDuplicates()
     {
-        $team = Team::find(1);
-        $team->name = Team::find(2)->name;
+        $team = TeamController::find(1);
+        $team->name = TeamController::find(2)->name;
         $this->assertFalse($team->save());
     }
 
@@ -110,26 +110,26 @@ class TeamTest extends TestCase
      */
     public function testDelete()
     {
-        $team = Team::find(1);
+        $team = TeamController::find(1);
         $this->assertFalse($team->delete()); // expected to fail because of foreign key
-        $team = Team::make(["name" => "dummy", "state_id" => 1]);
+        $team = TeamController::make(["name" => "dummy", "state_id" => 1]);
         $team->create();
         $id = $team->id;
         $this->assertTrue($team->delete()); // expected to succeed
-        $this->assertNull(Team::find($id)); // we should not find it back
+        $this->assertNull(TeamController::find($id)); // we should not find it back
     }
 
     /**
-     * @covers Team::destroy(id)
+     * @covers TeamController::destroy(id)
      */
     public function testDestroy()
     {
-        $this->assertFalse(Team::destroy(1)); // expected to fail because of foreign key
-        $team = Team::make(["name" => "dummy", "state_id" => 1]);
+        $this->assertFalse(TeamController::destroy(1)); // expected to fail because of foreign key
+        $team = TeamController::make(["name" => "dummy", "state_id" => 1]);
         $team->create();
         $id = $team->id;
-        $this->assertTrue(Team::destroy($id)); // expected to succeed
-        $this->assertNull(Team::find($id)); // we should not find it back
+        $this->assertTrue(TeamController::destroy($id)); // expected to succeed
+        $this->assertNull(TeamController::find($id)); // we should not find it back
     }
 
     /**
