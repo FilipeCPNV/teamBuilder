@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="views/css/member_list.css">
+    <link rel="stylesheet" href="views/css/list.css">
 </head>
 <body>
 <table>

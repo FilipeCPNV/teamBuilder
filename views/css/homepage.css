@@ -7,7 +7,7 @@ body{
     grid-template-columns: 1fr 1fr 1fr;
     justify-content: stretch;
     background-color: green;
-    height: 200px;
+    height: 220px;
 }
 .title{
     grid-column-start: 2;
@@ -16,10 +16,26 @@ body{
     line-height: 100px;
     font-size: 40px;
 }
+.buttons{
+    justify-content: stretch;
+}
+#button{
+    background-color: green;
+    color: white;
+    padding: 16px 16px;
+    border: 2px solid black;
+    text-align: center;
+    font-size: 12px;
+    margin-top: 10px;
+    transition-duration: 0.4s;
+}
+#button:hover{
+    background-color: white;
+    color: black;
+}
 .person{
     grid-column-start: 3;
     text-align: end;
-    line-height: 330px;
 }
 p{
     color: white;

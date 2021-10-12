@@ -10,4 +10,13 @@ $HomeController = new HomeController();
 $MemberController = new MemberController();
 
 $HomeController->index();
-$MemberController->index();
+
+if (isset($_POST['list_members'])) {
+    $MemberController->index();
+}
+if (isset($_POST['list_team'])) {
+    $MemberController->team(USER_ID);
+}
+if (isset($_POST['list_moderators'])) {
+    $MemberController->mods_list();
+}

@@ -2,7 +2,7 @@
 
 require_once 'model/Team.php';
 
-use Thynkon\SimpleOrm\database\Connector;
+use Thynkon\SimpleOrm\database\DB;
 use Thynkon\SimpleOrm\Model;
 
 class Member extends Model
@@ -16,19 +16,23 @@ class Member extends Model
 
     public function teams()
     {
-        $db = Connector::getInstance();
-        $connection = $db->getConnection();
         $query = <<<EOL
         SELECT teams.name FROM members
                     INNER JOIN team_member ON team_member.member_id = members.id
                     INNER JOIN teams ON teams.id = team_member.team_id
                     where members.id = :id
         EOL;
-        $statement = $connection->prepare($query);
-
-        if ($statement->execute(["id" => $this->id])) {
-            $teams = $statement->fetchAll(PDO::FETCH_CLASS, Team::class);
-        }
-        return $teams;
+        $connector = DB::getInstance();
+        return $connector->selectMany($query, ["id" => $this->id], Team::class);
+    }
+    public static function moderators()
+    {
+        $query = <<<EOL
+        SELECT m.name FROM members m
+            LEFT JOIN roles r on r.id = m.role_id
+            where r.slug = 'MOD'
+        EOL;
+        $connector = DB::getInstance();
+        return $connector->selectMany($query, [], Member::class);
     }
 }
