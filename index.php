@@ -9,6 +9,7 @@ require_once ('controllers/MemberController.php');
 $HomeController = new HomeController();
 $MemberController = new MemberController();
 
+<<<<<<< Updated upstream
 $HomeController->index();
 
 if (isset($_POST['list_members'])) {
@@ -20,3 +21,23 @@ if (isset($_POST['list_team'])) {
 if (isset($_POST['list_moderators'])) {
     $MemberController->mods_list();
 }
+=======
+function main()
+{
+    $controller = "HomeController";
+    $method = "index";
+
+    if (isset($_GET["controller"])) {
+        $controller = $_GET["controller"];
+    }
+
+    if (isset($_GET["method"])) {
+        $method = $_GET["method"];
+    }
+
+    $c = new $controller();
+    $c->$method();
+}
+
+main();
+>>>>>>> Stashed changes

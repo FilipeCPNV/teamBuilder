@@ -9,4 +9,5 @@ class HomeController
         $userName = Member::find(USER_ID)->name;
         require_once ('views/homepage.php');
     }
+
 }
