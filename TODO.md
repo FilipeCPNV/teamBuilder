@@ -1,7 +1,10 @@
-Ranger le dossier "SQL"
-Faire la documentation du projet dans un README.md
-Mettre à jour le main du Github
-Faire un exemple de .env
-Remplacer les EOL par des ""
-Création d'un dossier public => Racine du serveur web
-ORDER BY dans les requêtes SQL
+- Ranger le dossier "SQL"
+- Faire la documentation du projet dans un README.md
+- Mettre à jour le main du Github
+- Faire un exemple de .env
+- Remplacer les EOL par des ""
+- Création d'un dossier public => Racine du serveur web
+- ORDER BY dans les requêtes SQL
+- Créer une requête SQL qui permet le changement de nom de l'utilisateur
+- Vérification si l'utilisateur est un modérateur afin de pouvoir changer le rôle et le status
+- Ecrire un flash message avec PHP pour confirmer le changement de nom
