@@ -1,0 +1,22 @@
+body{
+    margin: 0px;
+    padding: 0px;
+    font-family: 'Roboto', sans-serif;
+}
+.header{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    justify-content: stretch;
+    background-color: green;
+    height: 220px;
+}
+.title{
+
+}
+.person{
+    grid-column-start: 3;
+    text-align: end;
+}
+p{
+    color: white;
+}
