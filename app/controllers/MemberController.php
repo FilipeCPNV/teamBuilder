@@ -57,4 +57,28 @@ class MemberController
         //Show the page
         require_once('public/views/moderator/list.php');
     }
+
+    public function profil()
+    {
+        //Get the current user
+        $user = Member::find(USER_ID);
+
+        //Get the user profil
+        $user_profil = Member::find($_GET["member_id"]);
+
+        //Get the user status
+        $status = $user_profil->status();
+
+        //Get the user role
+        $role = $user_profil->role();
+
+        //Get the teams where the user is captain
+        $teams_captain = $user_profil->iscaptain();
+
+        //Get the teams where the user is member
+        $teams_member = $user_profil->ismember();
+
+        //Show the page
+        require_once('public/views/member/profil.php');
+    }
 }

@@ -1,54 +1,94 @@
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
+-- -----------------------------------------------------
+-- Schema teambuilder
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema teambuilder
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `teambuilder` DEFAULT CHARACTER SET utf8mb3 ;
+USE `teambuilder` ;
+
 -- -----------------------------------------------------
 -- Table `teambuilder`.`roles`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `teambuilder`.`roles` (
-    `id` INT NOT NULL AUTO_INCREMENT,
-    `slug` VARCHAR(10) NOT NULL,
+                                                     `id` INT NOT NULL AUTO_INCREMENT,
+                                                     `slug` VARCHAR(10) NOT NULL,
     `name` VARCHAR(45) NOT NULL,
     PRIMARY KEY (`id`),
     UNIQUE INDEX `name_UNIQUE` (`name` ASC) VISIBLE,
     UNIQUE INDEX `slug_UNIQUE` (`slug` ASC) VISIBLE)
     ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4;
+    DEFAULT CHARACTER SET = utf8mb3;
+
+
+-- -----------------------------------------------------
+-- Table `teambuilder`.`status`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `teambuilder`.`status` (
+                                                      `id` INT NOT NULL AUTO_INCREMENT,
+                                                      `slug` VARCHAR(10) NOT NULL,
+    `name` VARCHAR(45) NOT NULL,
+    PRIMARY KEY (`id`),
+    UNIQUE INDEX `name_UNIQUE` (`name` ASC) VISIBLE,
+    UNIQUE INDEX `slug_UNIQUE` (`slug` ASC) VISIBLE)
+    ENGINE = InnoDB
+    DEFAULT CHARACTER SET = utf8mb3;
+
 
 -- -----------------------------------------------------
 -- Table `teambuilder`.`members`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `teambuilder`.`members` (
-    `id` INT NOT NULL AUTO_INCREMENT,
-    `name` VARCHAR(45) NOT NULL,
+                                                       `id` INT NOT NULL AUTO_INCREMENT,
+                                                       `name` VARCHAR(45) NOT NULL,
     `password` VARCHAR(500) NOT NULL,
     `role_id` INT NOT NULL,
+    `status_id` INT NOT NULL,
     PRIMARY KEY (`id`),
     UNIQUE INDEX `name_UNIQUE` (`name` ASC) VISIBLE,
     INDEX `fk_members_roles_idx` (`role_id` ASC) VISIBLE,
+    INDEX `fk_members_status1_idx` (`status_id` ASC) VISIBLE,
     CONSTRAINT `fk_members_roles`
-        FOREIGN KEY (`role_id`)
-        REFERENCES `teambuilder`.`roles` (`id`)
-        ON DELETE NO ACTION
-        ON UPDATE NO ACTION)
+    FOREIGN KEY (`role_id`)
+    REFERENCES `teambuilder`.`roles` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+    CONSTRAINT `fk_members_status1`
+    FOREIGN KEY (`status_id`)
+    REFERENCES `teambuilder`.`status` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
     ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4;
+    DEFAULT CHARACTER SET = utf8mb3;
+
 
 -- -----------------------------------------------------
 -- Table `teambuilder`.`states`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `teambuilder`.`states` (
-    `id` INT NOT NULL AUTO_INCREMENT,
-    `slug` VARCHAR(10) NOT NULL,
+                                                      `id` INT NOT NULL AUTO_INCREMENT,
+                                                      `slug` VARCHAR(10) NOT NULL,
     `name` VARCHAR(45) NOT NULL,
     PRIMARY KEY (`id`),
     UNIQUE INDEX `name_UNIQUE` (`name` ASC) VISIBLE,
     UNIQUE INDEX `slug_UNIQUE` (`slug` ASC) VISIBLE)
     ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4;
+    DEFAULT CHARACTER SET = utf8mb3;
+
 
 -- -----------------------------------------------------
 -- Table `teambuilder`.`teams`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `teambuilder`.`teams` (
-    `id` INT NOT NULL AUTO_INCREMENT,
-    `name` VARCHAR(45) NOT NULL,
+                                                     `id` INT NOT NULL AUTO_INCREMENT,
+                                                     `name` VARCHAR(45) NOT NULL,
     `state_id` INT NOT NULL,
     PRIMARY KEY (`id`),
     UNIQUE INDEX `name_UNIQUE` (`name` ASC) VISIBLE,
@@ -59,30 +99,36 @@ CREATE TABLE IF NOT EXISTS `teambuilder`.`teams` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
     ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4;
+    DEFAULT CHARACTER SET = utf8mb3;
+
 
 -- -----------------------------------------------------
 -- Table `teambuilder`.`team_member`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `teambuilder`.`team_member` (
-    `id` INT NOT NULL AUTO_INCREMENT,
-    `member_id` INT NOT NULL,
-    `team_id` INT NOT NULL,
-    `membership_type` INT NOT NULL COMMENT '0 = inactive\n1 = active\n2 = invitation\n3 = request',
-    `is_captain` TINYINT NOT NULL DEFAULT 0,
-    PRIMARY KEY (`id`),
+                                                           `id` INT NOT NULL AUTO_INCREMENT,
+                                                           `member_id` INT NOT NULL,
+                                                           `team_id` INT NOT NULL,
+                                                           `membership_type` INT NOT NULL COMMENT '0 = inactive\n1 = active\n2 = invitation\n3 = request',
+                                                           `is_captain` TINYINT NOT NULL DEFAULT 0,
+                                                           PRIMARY KEY (`id`),
     UNIQUE INDEX `unique_membership` (`member_id` ASC, `team_id` ASC) VISIBLE,
     INDEX `fk_team_member_members1_idx` (`member_id` ASC) VISIBLE,
     INDEX `fk_team_member_teams1_idx` (`team_id` ASC) VISIBLE,
     CONSTRAINT `fk_team_member_members1`
-        FOREIGN KEY (`member_id`)
-        REFERENCES `teambuilder`.`members` (`id`)
-        ON DELETE NO ACTION
-        ON UPDATE NO ACTION,
+    FOREIGN KEY (`member_id`)
+    REFERENCES `teambuilder`.`members` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
     CONSTRAINT `fk_team_member_teams1`
-        FOREIGN KEY (`team_id`)
-        REFERENCES `teambuilder`.`teams` (`id`)
-        ON DELETE NO ACTION
-        ON UPDATE NO ACTION)
+    FOREIGN KEY (`team_id`)
+    REFERENCES `teambuilder`.`teams` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
     ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4;
+    DEFAULT CHARACTER SET = utf8mb3;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;

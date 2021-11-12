@@ -5,7 +5,7 @@ ob_start()
         <?php foreach ($members as $member): ?>
             <tr>
                 <td>
-                    <?= $member->name ?>
+                    <a href="/?controller=MemberController&method=profil&member_id=<?= $member->id ?>"><?= $member->name ?></a>
                 </td>
                 <td>
                     <?php foreach ($member->teams() as $team): ?>
@@ -15,7 +15,6 @@ ob_start()
             </tr>
         <?php endforeach ?>
     </table>
-    <p>bonjour</p>
 <?php
 $content = ob_get_clean();
 require('public/views/homepage.php');

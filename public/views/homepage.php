@@ -24,12 +24,12 @@
             <a href="/?controller=TeamController&method=createForm" id="link">Création d'une équipe</a>
         </div>
         <div class="mx-4 p-4">
-            <p>Connecté en tant que <?= $user->name ?></p>
+            <p>Connecté en tant que <a href="/?controller=MemberController&method=profil&member_id=<?= $user->id ?>"><?= $user->name ?></a></p>
             <p>Version : Début Examen - Filipe</p>
         </div>
     </div>
 </nav>
-<div class="px-32">
+<div>
     <?= $content ?>
 </div>
 </body>
