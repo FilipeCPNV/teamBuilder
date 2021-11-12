@@ -25,7 +25,7 @@
         </div>
         <div class="mx-4 p-4">
             <p>Connecté en tant que <a href="/?controller=MemberController&method=profil&member_id=<?= $user->id ?>"><?= $user->name ?></a></p>
-            <p>Version : Début Examen - Filipe</p>
+            <p>Version : Fin Examen - Filipe</p>
         </div>
     </div>
 </nav>

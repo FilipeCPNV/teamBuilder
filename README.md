@@ -6,7 +6,7 @@ Afin de faire fonctionner le projet un fichier '.env.php' doit être créé. Un 
 
 ### Base de données
 
-Pour créer une base de données fonctionnelle, il faut executer tout d'abord le script 'base.sql' qui se se trouve dans le dossier 'doc_db' puis 'sql'.
+Pour créer une base de données fonctionnelle, il faut executer tout d'abord le script 'base.sql' qui se trouve dans le dossier 'doc_db' puis 'sql'.
 Ensuite, il suffit de rajouter les données. Celles-ci se trouvent dans le script 'insert_all'.
 
 ## Fonctionnalités
