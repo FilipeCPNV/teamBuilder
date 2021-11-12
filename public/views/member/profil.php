@@ -29,6 +29,11 @@ ob_start()
     <?php if(count($teams_captain) == 0 and count($teams_member) == 0): ?>
         <span>Inscrit dans aucune équipe</span>
     <?php endif; ?>
+
+    <?php if(USER_ID == $user_profil->id) : ?>
+        <br>
+        <a href="/?controller=MemberController&method=profil_edit&member_id=<?= $user_profil->id ?>">Mode édition</a>
+    <?php endif; ?>
 <?php
 $content = ob_get_clean();
 require('public/views/homepage.php');

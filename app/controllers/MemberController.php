@@ -12,6 +12,9 @@ class MemberController
         //Get the current user
         $user = Member::find(USER_ID);
 
+        //Get the user role
+        $role = $user->role();
+
         //Get all the members
         $members = Member::all();
 
@@ -80,5 +83,24 @@ class MemberController
 
         //Show the page
         require_once('public/views/member/profil.php');
+    }
+    public function profil_edit()
+    {
+        //Get the current user
+        $user = Member::find(USER_ID);
+
+        //Get the user profil
+        $user_profil = Member::find($_GET["member_id"]);
+
+        //Show the page
+        require_once('public/views/member/edit.php');
+    }
+    public function changeName()
+    {
+        //Get the current user
+        $user = Member::find(USER_ID);
+
+        $user->name = $_POST["member_name"];
+
     }
 }
